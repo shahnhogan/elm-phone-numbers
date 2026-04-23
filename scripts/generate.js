@@ -27,11 +27,12 @@ xml2js.parseString(dbString, parseOptions, (err, result) => {
         .filter(filterTerritory)
         .map(territoryToJSON);
 
+  const exposedNames = ["all", ...territories.map(t => "country" + t.id)];
   const header = `
-module PhoneNumber.Countries exposing (..)
+module PhoneNumber.Countries exposing (${exposedNames.join(', ')})
 
 {-| Metadata for most (all?) countries in the world.
-@docs all, ${territories.map(t => "country" + t.id).join(',')}
+@docs ${exposedNames.join(', ')}
 -}
 
 import Regex
